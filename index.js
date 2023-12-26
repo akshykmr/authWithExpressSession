@@ -7,12 +7,15 @@ import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from "helmet";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
+
 mongoose
   .connect(
-    "mongodb+srv://akshykmr:Akshay7053@cluster1.oq3wyds.mongodb.net/authWithSession"
+    process.env.DB_URL
   )
   .then(() => {
     console.log("mongodb connected");
@@ -30,7 +33,7 @@ mongoose
 
 const User = mongoose.model('User', testUser)
 
-app.use(morgan('combined')); // IT WILL HELP TO  ENHANCE THE SECURITY OF APP
+app.use(morgan('combined')); // IT WILL HELP ENHANCE THE SECURITY OF APP
 app.use(helmet()); // IT WILL SHOW THE DETAILS OF SYSTEM LIKE TIME TAKEN BY SYSTEM TO EXECUTE THE FUNCTION AND ETC.
 app.use(express.json());
  // To parse JSON bodies
